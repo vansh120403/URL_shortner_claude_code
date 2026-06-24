@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shortly — reliable URL shortener</title>
+    <meta name="description" content="Create fast, safe short links with built-in URL validation and safety checks." />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="hero">
+        <h1 class="logo"><span class="logo-mark">🔗</span> Shortly</h1>
+        <p class="tagline">Fast, reliable short links — with validation, SSRF protection &amp; safety screening built in.</p>
+      </header>
+
+      <section class="card" aria-labelledby="form-title">
+        <h2 id="form-title" class="sr-only">Create a short link</h2>
+        <form id="shorten-form" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="url">Long URL</label>
+            <input
+              id="url"
+              name="url"
+              type="url"
+              inputmode="url"
+              placeholder="https://example.com/a/very/long/path"
+              required
+            />
+          </div>
+          <div class="field">
+            <label for="alias">Custom alias <span class="optional">— optional</span></label>
+            <input
+              id="alias"
+              name="alias"
+              type="text"
+              placeholder="my-link"
+              pattern="[A-Za-z0-9_-]{3,32}"
+              aria-describedby="alias-hint"
+            />
+            <small id="alias-hint" class="hint">3–32 characters: letters, digits, “-” or “_”.</small>
+          </div>
+          <button id="submit" type="submit" class="btn-primary">Shorten</button>
+        </form>
+
+        <div id="error" class="alert" role="alert" hidden></div>
+
+        <div id="result" class="result" hidden>
+          <span class="result-label">Your short link</span>
+          <div class="result-row">
+            <a id="result-link" class="result-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+            <button id="copy" type="button" class="btn-copy">Copy</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="history" aria-labelledby="history-title">
+        <h2 id="history-title">Recent links</h2>
+        <ul id="history-list" class="history-list"></ul>
+        <p id="history-empty" class="history-empty">No links yet — create one above.</p>
+      </section>
+
+      <footer class="footer">
+        <span>Built with Express&nbsp;5 · TypeScript · node:sqlite</span>
+      </footer>
+    </main>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
